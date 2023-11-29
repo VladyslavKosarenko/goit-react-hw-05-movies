@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
-  const [cast, setCast] = useState([]);
-  const [reviews, setReviews] = useState([]);
-
   useEffect(() => {
     const apiKey = '815be87df7ca36934ad03a6159bc2a6d';
 
@@ -17,16 +14,6 @@ const MovieDetailsPage = () => {
           `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
         );
         setMovieDetails(movieDetailsResponse.data);
-
-        const castResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`
-        );
-        setCast(castResponse.data.cast);
-
-        const reviewsResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${apiKey}`
-        );
-        setReviews(reviewsResponse.data.results);
       } catch (error) {
         console.error('Error fetching movie details:', error);
       }
@@ -49,7 +36,17 @@ const MovieDetailsPage = () => {
       )}
 
       <p>{movieDetails.overview}</p>
-
+      <p>{movieDetails.genres.name}</p>
+      <p>Budget - {movieDetails.budget}$</p>
+      <ul>
+        <h3>Additional information</h3>
+        <li>
+          <NavLink to="cast">Credits</NavLink>
+        </li>
+        <li>
+          <NavLink to="reviews">Reviews</NavLink>
+        </li>
+      </ul>
       <Outlet />
     </div>
   );

@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { fetchMovie } from '../components/fetchFunction';
 
 const HomePage = () => {
-  const [popularMovie, setPopulsrMovie] = useState([]);
+  const [popularMovie, setPopularMovie] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const apiKey = '815be87df7ca36934ad03a6159bc2a6d';
       try {
-        const fetchMovie = await axios.get(
-          `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`
-        );
-        const response = fetchMovie.data;
-        setPopulsrMovie(response.results || []);
+        const response = await fetchMovie();
+        setPopularMovie(response.results || []);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setPopulsrMovie([]);
+        setPopularMovie([]);
       }
     };
 
     fetchData();
   }, []);
+
   return (
     <div>
       <h1>Popular Movies</h1>
@@ -29,13 +28,7 @@ const HomePage = () => {
         <ul>
           {popularMovie.map(movie => (
             <li key={movie.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                alt={movie.title}
-              />
-              <p>
-                {movie.id}-{movie.title}
-              </p>
+              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
             </li>
           ))}
         </ul>
