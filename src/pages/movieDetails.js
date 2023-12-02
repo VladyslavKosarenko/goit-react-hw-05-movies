@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Outlet, useParams, NavLink } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchMovieDetails } from '../components/fetchFunction';
-
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
