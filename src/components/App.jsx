@@ -3,7 +3,7 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import { lazy } from 'react';
 const HomePage = lazy(() => import('../pages/HomePages'));
 const MovieSearchPage = lazy(() => import('../pages/MoviesSearchPages'));
-const MovieDetailsPage = lazy(() => import('../pages/MovieDetails'));
+const MovieDetailsPage = lazy(() => import('../pages/MovieDetailsNew'));
 const MovieCredits = lazy(() => import('../pages/MovieCredits'));
 
 const MovieReviews = lazy(() => import('../pages/MovieReviews'));
