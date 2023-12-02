@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieDetails } from '../components/fetchFunction';
+import { fetchMovieCredits } from '../components/fetchFunction';
 
 const MovieCredits = () => {
   const { movieId } = useParams();
@@ -8,7 +8,7 @@ const MovieCredits = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const castData = await fetchMovieDetails(movieId);
+      const castData = await fetchMovieCredits(movieId);
       setCast(castData);
     };
 

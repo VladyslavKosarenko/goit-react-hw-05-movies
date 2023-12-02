@@ -13,15 +13,36 @@ export const fetchMovie = async () => {
     throw error;
   }
 };
+export const fetchSearchMovie = async query => {
+  const apiKey = '815be87df7ca36934ad03a6159bc2a6d';
+  try {
+    const fetchMovie = await axios.get(
+      `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${query}`
+    );
+    return fetchMovie.data.results || [];
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 export const fetchMovieDetails = async movieId => {
   try {
-    const castResponse = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`
     );
-
-    return castResponse.data.cast;
+    return response.data;
   } catch (error) {
     console.error('Error fetching movie details:', error);
+  }
+};
+export const fetchMovieCredits = async movieId => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`
+    );
+    return response.data.cast;
+  } catch (error) {
+    console.error('Error fetching movie credits:', error);
+    throw error;
   }
 };
 
